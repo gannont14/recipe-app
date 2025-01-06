@@ -39,7 +39,6 @@ export default function RootLayout({
           defaultTheme="light"
           enableSystem
           disableTransitionOnChange
-          suppressHydrationWarning
         >
           <main className="relative z-10">
             <nav className="w-full border-b p-4 bg-background/70 backdrop-blur-md">
