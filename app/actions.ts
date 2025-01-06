@@ -19,22 +19,57 @@ export const signUpAction = async (formData: FormData) => {
     );
   }
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `${origin}/auth/callback`,
-    },
-  });
+  try {
+    // Log the attempt
+    console.log(`Attempting to sign up user: ${email}`);
 
-  if (error) {
-    console.error(error.code + " " + error.message);
-    return encodedRedirect("error", "/sign-up", error.message);
-  } else {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+      },
+    });
+
+    // Log the complete response
+    console.log('Signup response:', {
+      data: data,
+      error: error,
+      user: data?.user,
+      session: data?.session
+    });
+
+    if (error) {
+      console.error('Signup error details:', {
+        message: error.message,
+        code: error.code,
+        status: error.status
+      });
+      return encodedRedirect("error", "/sign-up", error.message);
+    }
+
+    // Check if user was actually created
+    if (!data.user) {
+      console.error('No user data returned');
+      return encodedRedirect(
+        "error",
+        "/sign-up",
+        "Failed to create user account"
+      );
+    }
+
     return encodedRedirect(
       "success",
       "/sign-up",
       "Thanks for signing up! Please check your email for a verification link.",
+    );
+
+  } catch (error) {
+    console.error('Unexpected signup error:', error);
+    return encodedRedirect(
+      "error",
+      "/sign-up",
+      "An unexpected error occurred during signup"
     );
   }
 };
