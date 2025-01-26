@@ -6,6 +6,14 @@ import { postNewRecipe } from '@/lib/repositories/recipeRepository';
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/router';
 
+// love typescript
+export interface CustomAmountChangeEvent {
+  target: {
+    name: string;
+    value: number;
+  };
+}
+
 interface Ingredient {
   unit: string;
   amount: number;
@@ -120,13 +128,13 @@ const RecipeForm: React.FC = () => {
     }
   };
 
-  const handleIngredientChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleIngredientChange = (e: React.ChangeEvent<HTMLInputElement> | CustomAmountChangeEvent, index: number) => {
     const { name, value } = e.target;
     setFormData((prevData) => {
       const ingredients = [...prevData.ingredients];
       ingredients[index] = {
         ...ingredients[index],
-        [name]: name === 'amount' ? parseFloat(value) : value,
+        [name]: name === 'amount' ? parseFloat(value.toString()) : value,
       };
       return {
         ...prevData,

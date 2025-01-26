@@ -2,6 +2,7 @@
 
 import React from "react";
 import FractionInput from "@/components/recipes/fraction-input"
+import { CustomAmountChangeEvent } from "./upload-recipe-form";
 
 interface Ingredient {
   unit: string;
@@ -11,7 +12,7 @@ interface Ingredient {
 
 interface IngredientsFormProps {
   ingredients: Ingredient[];
-  onIngredientChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
+  onIngredientChange: (e: React.ChangeEvent<HTMLInputElement> | CustomAmountChangeEvent, index: number) => void;
   onAddIngredient: () => void;
   onRemoveIngredient: (index: number) => void;
 }
