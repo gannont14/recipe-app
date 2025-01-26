@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import IngredientsForm from './ingredients-form';
 import { postNewRecipe } from '@/lib/repositories/recipeRepository';
 import { createClient } from '@/utils/supabase/client';
+import { useRouter } from 'next/router';
 
 interface Ingredient {
   unit: string;
@@ -65,6 +66,7 @@ const RecipeForm: React.FC = () => {
   const [recipeTypes, setRecipeTypes] = useState<RecipeType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadSuccess, setUploadSucces] = useState(false);
 
   useEffect(() => {
     const fetchRecipeTypes = async () => {
@@ -80,6 +82,7 @@ const RecipeForm: React.FC = () => {
 
         const data = await response.json();
         setRecipeTypes(Array.isArray(data) ? data : []);
+        // render that the upload is complete
       } catch (error) {
         console.error('Error in fetchRecipeTypes:', error);
       } finally {
@@ -154,7 +157,7 @@ const RecipeForm: React.FC = () => {
     e.preventDefault();
 
     try {
-      if (!formData.title || !formData.description || !formData.instructions) {
+      if (!formData.title || !formData.instructions) {
         throw new Error('Please fill in all required fields');
       }
       
@@ -162,9 +165,6 @@ const RecipeForm: React.FC = () => {
         throw new Error('Please add at least one ingredient');
       }
       
-      if (!formData.image_url) {
-        throw new Error('Please upload an image');
-      }
       
       if (!formData.type_id) {
         throw new Error('Please select a recipe type');
@@ -212,7 +212,7 @@ const RecipeForm: React.FC = () => {
           name="description"
           value={formData.description}
           onChange={handleChange}
-          required
+          //required
           className="w-full"
         />
       </div>
@@ -265,7 +265,7 @@ const RecipeForm: React.FC = () => {
           name="image"
           accept="image/*"
           onChange={handleImageUpload}
-          required
+          //required
           disabled={isUploading}
           className="w-full"
         />
