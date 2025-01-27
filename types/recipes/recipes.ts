@@ -11,6 +11,7 @@ export interface RecipeType{
 
 export interface Recipe {
   id: number;
+  user_id: string;
   title: string;
   description: string;
   ingredients: Ingredient[];
@@ -18,5 +19,5 @@ export interface Recipe {
   servings: number;
   cook_time: number;
   image_url: string;
-  recipe_types: RecipeType[];
+  recipe_type: RecipeType;
 }

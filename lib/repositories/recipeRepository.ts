@@ -100,7 +100,7 @@ export const getRecipeById = async (id: string): Promise<Recipe | null> => {
       .from('recipes')
       .select(`
         *,
-        recipe_types(id, name)
+        recipe_types!inner(id, name)
       `)
       .eq('id', id)
       .single();
@@ -108,8 +108,44 @@ export const getRecipeById = async (id: string): Promise<Recipe | null> => {
     if (error) throw error;
     if (!data) throw new Error('Recipe not found');
     
-    return data as Recipe;
+    return {
+      ...data,
+      recipe_type:  {
+        id: data.recipe_types.id,
+        name: data.recipe_types.name
+      }
+
+    } as Recipe;
   } catch {
     return null;
   }
 };
+
+
+export const updateRecipe = async (id: string, recipeData: Recipe) => {
+  const supabase = createClient();
+  
+  const dataForDb = {
+    title: recipeData.title,
+    description: recipeData.description,
+    ingredients: recipeData.ingredients,
+    instructions: recipeData.instructions,
+    servings: recipeData.servings,
+    cook_time: recipeData.cook_time,
+    image_url: recipeData.image_url,
+    type_id: recipeData.recipe_type.id,
+    user_id: recipeData.user_id
+  };
+
+  const { data, error } = await supabase
+    .from('recipes')
+    .update(dataForDb)
+    .eq('id', id)
+    .select();
+
+  if (error) throw error;
+  return data;
+};
+
+
+

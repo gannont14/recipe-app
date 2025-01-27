@@ -22,6 +22,7 @@ export default async function DynamicRecipePage({ params }: PageProps) {
 
   const recipeData = {
     id: recipe.id,
+    user_id: recipe.user_id,
     title: recipe.title,
     description: recipe.description,
     ingredients: recipe.ingredients,
@@ -29,7 +30,7 @@ export default async function DynamicRecipePage({ params }: PageProps) {
     servings: recipe.servings,
     cook_time: recipe.cook_time,
     image_url: recipe.image_url,
-    recipe_types: recipe.recipe_types,
+    recipe_type: recipe.recipe_type,
   };
 
 
