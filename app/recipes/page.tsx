@@ -12,7 +12,7 @@ export default async function RecipesPage() {
 
   return (
     <div className="max-w-full mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">My Recipes</h1>
+      <h1 className="text-3xl font-bold mb-6">All Recipes</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {recipes.map((recipe: Recipe) => (
           <RecipeCard
