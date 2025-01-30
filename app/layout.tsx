@@ -43,7 +43,7 @@ export default function RootLayout({
           <main className="relative z-10">
             <nav className="w-full border-b p-4 bg-background/70 backdrop-blur-md">
               <div className="max-w-5xl mx-auto flex justify-between items-center">
-                <Link href="/" className="font-semibold">
+                <Link href="/recipes" className="font-semibold">
                   Recipe App
                 </Link>
                 <div className="flex items-center gap-4">
