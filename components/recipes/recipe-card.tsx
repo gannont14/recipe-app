@@ -28,7 +28,7 @@ export default function RecipeCard({recipe, cardKey} : RecipeCardProps) {
                            transition-opacity duration-300">
                 {recipe.description}
                 <br/>
-                serves: {recipe.servings}
+                servings: {recipe.servings}
               </p>
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-white p-4">
