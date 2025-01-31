@@ -77,7 +77,7 @@ export default function RecipePage (
         <div className="space-y-2 text-xl">
           {recipe.instructions
             .replace(/\\n\\n/g, '\n\n')  // Replace literal \n\n with actual newlines
-            .split('\n\n')
+            .split('\n')
             .map((instruction, index) => (
               <p key={index} className="text-gray-700">
                 {instruction}
