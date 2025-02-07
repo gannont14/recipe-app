@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import IngredientsForm from './ingredients-form';
 import { postNewRecipe } from '@/lib/repositories/recipeRepository';
 import { createClient } from '@/utils/supabase/client';
-import { useRouter } from 'next/router';
 
 // love typescript
 export interface CustomAmountChangeEvent {

@@ -18,6 +18,7 @@ export default async function RecipesPage() {
           <RecipeCard
             recipe={recipe}
             cardKey={recipe.id}
+            key={recipe.id}
           />
         ))}
       </div>

@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
+import UserAvatarButton from "../profile/user-avatar-button";
 
 
 export default function RecipePage (
@@ -26,14 +27,19 @@ export default function RecipePage (
 
   return (
     <div className="w-[85vw]  card bg-white rounded-lg flex-column items-center p-5 m-auto">
-      {session?.user.id === recipe.user_id && (
-        <button 
-          onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
-          className="px-4 py-2 bg-white text-black rounded hover:border hover: border-black"
-        >
-          Edit
-        </button>
-      )}
+      <div className="flex justify-between">
+        {session?.user.id === recipe.user_id && (
+          <button 
+            onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
+            className="px-4 py-2 bg-white text-black rounded hover:border hover: border-black"
+          >
+            Edit
+          </button>
+        )}
+        <div className="mr-5 mt-5">
+          <UserAvatarButton userId={recipe.user_id} />
+        </div>
+      </div>
       <div className="flex-column">
         {/* Text section */}
         <div className="flex-column text-center justify-center mx-auto text-xl">
