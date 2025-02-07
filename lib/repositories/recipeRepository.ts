@@ -92,6 +92,21 @@ export async function getRecipesByUser(userId: string) {
   }
 }
 
+export async function getPaginatedRecipesByUser(userId: string, page: number = 0, pageSize: number = 10){
+  // gotta love supabase , custom SQL function
+  const supabase = createClient();
+  const { data, error } = await supabase
+   .rpc('get_paginated_user_recipes', {
+     user_id_input: userId,
+     page_number: page,
+     items_per_page: pageSize
+   });
+
+  if (error) throw error;
+  //console.log("length: ", data.length);
+  return data;
+}
+
 export const getRecipeById = async (id: string): Promise<Recipe | null> => {
   try {
     const supabase = createClient();
