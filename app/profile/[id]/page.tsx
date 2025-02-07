@@ -27,6 +27,10 @@ export default async function ProfilePage({ params }: PageParams){
   // if this is the current user's id, then they can edit
   const isEditable: boolean = userId === id;
 
+  console.log("found page")
+  console.log("editable: ", isEditable);
+  console.log("hasProfile: ", profile);
+
   // no profile is fetched
   if(!profile){
     // this is the current user's, prompt to setup

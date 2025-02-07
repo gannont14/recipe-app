@@ -3,6 +3,7 @@ import { UserProfile } from "@/types/profiles/profiles";
 import ShowcasedRecipeCard from "./showcased-recipe-card";
 import { Recipe } from "@/types/recipes/recipes";
 import ScrollingRecipesList from "./scrolling-recipes-list";
+import ProfileSettingsButton from "@/components/profile/profile-settings-button"
 
 
 interface ProfileCardProps {
@@ -29,9 +30,15 @@ export default async function ProfileCard({ userProfile, isEditable } : ProfileC
         />
       {/* User's name and showcased recipe */}
         <div className="grow flex flex-col justify-center text-center">
-          <h1 className="text-5xl">
-            {userProfile.first_name} {userProfile.last_name}
-          </h1>
+          <div className="flex">
+            <h1 className="text-5xl grow">
+              {userProfile.first_name} {userProfile.last_name}
+            </h1>
+            <div className="flex-none">
+              <ProfileSettingsButton userId={userProfile.id}/>
+
+            </div>
+          </div>
           <div className="grow p-6">
             <h1 className="text-left text-2xl"> Showcased Recipe: </h1>
             <ShowcasedRecipeCard 

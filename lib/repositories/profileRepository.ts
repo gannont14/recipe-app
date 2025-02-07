@@ -12,7 +12,7 @@ export async function getUserProfile(userId: string){
 
 
     // if it throws an error, there was an error fetching, or the user doesn't exist
-    if(error) throw error;
+    if(error) null;
     console.log("Returning user", data);
     return data;
 }
