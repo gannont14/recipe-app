@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 import { UserProfile } from "@/types/profiles/profiles";
 import {  getUserProfile } from "@/lib/repositories/profileRepository";
 import ProfileCard from "@/components/profile/profile-card";
@@ -20,7 +20,7 @@ export default async function ProfilePage({ params }: PageParams){
 
 
   // getting the current user's id
-  const supabase = createClient();
+  const supabase = await createClient();
   const session = await supabase.auth.getSession();
   const userId = session.data.session?.user.id;
 
