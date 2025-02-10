@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { getUserProfile, updateUserProfile } from '@/lib/repositories/profileRepository';
 import { createClient } from '@/utils/supabase/client';
+import { getRecipesByUser } from '@/lib/repositories/recipeRepository';
+import ShowcasedRecipeSelector from './showcased-recipe-selector';
+import { Recipe } from '@/types/recipes/recipes';
 
 const uploadImage = async (file: File) => {
   try {
@@ -25,6 +28,8 @@ export default function UserProfileForm({ userId }: { userId: string }) {
   const [profileImageUrl, setProfileImageUrl] = useState('');
   const [showcasedRecipeId, setShowcasedRecipeId] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  //const [recipesLoading, setRecipesLoading] = useState<boolean>(true);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -39,7 +44,13 @@ export default function UserProfileForm({ userId }: { userId: string }) {
       }
     };
 
+    const fetchUserRecipes = async () => {
+      const recipes: Recipe[] = await getRecipesByUser(userId);
+      setRecipes(recipes);
+    }
+
     fetchUserProfile();
+    fetchUserRecipes();
   }, [userId]);
 
   const handleProfileImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,6 +130,7 @@ export default function UserProfileForm({ userId }: { userId: string }) {
           </div>
         )}
       </div>
+      {/*
       <div>
         <label htmlFor="showcasedRecipeId">Showcased Recipe ID:</label>
         <input
@@ -128,6 +140,9 @@ export default function UserProfileForm({ userId }: { userId: string }) {
           onChange={(e) => setShowcasedRecipeId(Number(e.target.value))}
         />
       </div>
+      */}
+
+      <ShowcasedRecipeSelector  userRecipes={recipes} showcasedRecipeId={showcasedRecipeId} setShowcasedRecipeId={setShowcasedRecipeId}  />
       <button 
         type="submit"
         disabled={isUploading}
