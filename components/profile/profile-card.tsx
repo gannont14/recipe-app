@@ -34,10 +34,11 @@ export default async function ProfileCard({ userProfile, isEditable } : ProfileC
             <h1 className="text-5xl grow">
               {userProfile.first_name} {userProfile.last_name}
             </h1>
-            <div className="flex-none">
-              <ProfileSettingsButton userId={userProfile.id}/>
-
-            </div>
+            {isEditable && 
+              <div className="flex-none">
+                <ProfileSettingsButton userId={userProfile.id}/>
+              </div>
+            }
           </div>
           <div className="grow p-6">
             <h1 className="text-left text-2xl"> Showcased Recipe: </h1>
